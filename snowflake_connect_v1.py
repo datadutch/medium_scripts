@@ -3,7 +3,7 @@
 import snowflake.connector
 import json
 
-with open('/Users/johanvanderkooij/git/medium_scripts/config.json','r') as file:
+with open('/Users/johanvanderkooij/git/config/config.json','r') as file:
     data = json.load(file)
     user = data['user']
     password = data['password']
