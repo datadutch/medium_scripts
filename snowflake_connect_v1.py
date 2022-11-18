@@ -2,6 +2,7 @@
 
 import snowflake.connector
 import json
+import pandas as pd
 
 with open('config.json','r') as file:
     data = json.load(file)
@@ -15,7 +16,12 @@ con = snowflake.connector.connect(
     account = account
 )
 
-result = con.cursor().execute("USE WAREHOUSE PUBLIC;") 
-result = con.cursor().execute("SELECT * FROM PUBLIC.INFORMATION_SCHEMA.TABLES;") 
-result_list = result.fetchall() 
-print(result_list) 
+con.cursor().execute("USE WAREHOUSE TF_DEMO;") 
+
+query_inf = "SELECT * FROM TF_DEMO.INFORMATION_SCHEMA.TABLES;"
+
+# con.execute =  "select distinct user_name from snowflake.account_usage.access_history;"
+# query_inf = "SELECT * FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));"
+
+df = pd.read_sql_query(query_inf, con)
+print(df)
